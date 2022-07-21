@@ -1,6 +1,7 @@
-/Banco/node_modules/*
-/Vue-Router/node_modules/*
-/Inicio Vue3/node_modules/*
+/banco digital dinamico/node_modules/*
+/vue-router/node_modules/*
+/inicio vue3 - cdn/node_modules/*
 /vue-router/node_modules/*
 /formulario-1/node_modules/*
+/formulario-crud/node_modules/*
 
