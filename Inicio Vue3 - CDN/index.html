@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+<body>
+
+    <div id="app">
+
+        <h3> {{ titulo }} </h3>
+        <h4 
+            class="bg-dark" 
+            :class="colorCantidad" > 
+            Saldo disponible : {{ cantidad }} 
+        </h4>
+
+        <a :href="enlace">Youtube</a>
+        <hr>
+
+        <h3 v-if="estado">Cuenta activa</h3>
+        <h3 v-else>Cuenta Inactiva</h3>
+
+        <hr>
+
+        <h3 v-if="cantidad > 500"> Saldo {{ cantidad }}</h3>
+        <h3 v-else-if="cantidad <= 500 && cantidad > 0">
+            <span style="color: red;"> Saldo {{ cantidad }} </span>
+        </h3>
+        <h3 v-else> Sin saldo</h3>
+
+        <hr>
+
+        <h2>Servicios</h2>
+
+        <ul>
+            <li v-for="(servicio, index) in servicios" :key="index">
+                {{ servicio }}
+            </li>
+        </ul>
+
+        <hr>
+
+        <button  class="btn btn-primary" @click="disminuir(100)" :disabled="desactivar">Disminuir saldo</button>
+        <button class="btn btn-primary" @click="incrementar">Incrementar saldo</button>
+
+        <footer-banco :cantidad="cantidad"></footer-banco>
+
+    </div>
+
+
+    <script src="./main.js"></script>
+    <script src="./components/Footer.js"></script>
+
+
+    <script>
+        const mountedApp = app.mount('#app')
+    </script>
+</body>
+</html>
