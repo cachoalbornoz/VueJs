@@ -22,7 +22,6 @@ export default {
   components: {
     Input,
     ListaTareas,
-    ListaTareas
 },
   data() {
     return {
@@ -36,17 +35,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['setTareas']),
+    ...mapActions(['guardarTareas']),
 
     procesarFormulario() {      
 
       // Generar Id
       this.tarea.id = nanoid();
-
       // Enviar tarea a Vuex
-      this.setTareas(this.tarea)
-
-
+      this.guardarTareas(this.tarea)
       // Una vez enviados los datos, los puedo limpiar
       this.tarea = {
         id: '',
@@ -54,8 +50,7 @@ export default {
         categorias: [],
         estado: "",
         numero: 0,
-      };
-      
+      };      
     },
   },
   
