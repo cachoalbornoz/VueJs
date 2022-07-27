@@ -16,40 +16,57 @@ export default createStore({
   },
   mutations: {
 
-    guardar(state, payload){
+    cargar(state, payload){
+      state.tareas = payload
+    },
+    guardar(state, payload) {
       state.tareas.push(payload)
+      localStorage.setItem('tareas', JSON.stringify(state.tareas))
     },
-    delete(state, id){
+    delete(state, id) {
       state.tareas = state.tareas.filter(tarea => tarea.id !== id)
+      localStorage.setItem('tareas', JSON.stringify(state.tareas))
     },
-    buscar(state, id){
-      // Si no lo encuentra
-      if(!state.tareas.find(tarea => tarea.id === id)){
+    buscar(state, id) {
+      // Si no lo encuentra, que vuelva a la url home
+      if (!state.tareas.find(tarea => tarea.id === id)) {
         router.push('/')
-        return   
+        return
       }
       state.tarea = state.tareas.find(tarea => tarea.id === id)
     },
-    update(state, payload){
+    update(state, payload) {
       state.tareas = state.tareas.map(tarea => tarea.id === payload.id ? payload : tarea)
+      localStorage.setItem('tareas', JSON.stringify(state.tareas))
       router.push('/')
     },
   },
   actions: {
 
-    guardarTareas({commit}, tarea){
+    cargarLocalStorage({ commit }) {
+      if (localStorage.getItem('tareas')) {
+        const tareas = JSON.parse(localStorage.getItem('tareas'));
+        commit('cargar', tareas)
+        return
+      }
+
+      localStorage.setItem('tareas', JSON.stringify([]));
+
+    },
+
+    guardarTareas({ commit }, tarea) {
       commit('guardar', tarea)
     },
 
-    deleteTarea({commit}, id){
+    deleteTarea({ commit }, id) {
       commit('delete', id)
     },
 
-    buscarTarea({commit}, id){
+    buscarTarea({ commit }, id) {
       commit('buscar', id)
     },
 
-    updateTarea({commit}, tarea){
+    updateTarea({ commit }, tarea) {
       commit('update', tarea)
     },
 
