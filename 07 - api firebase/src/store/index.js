@@ -42,22 +42,28 @@ export default createStore({
 
     async cargarLocalStorage({ commit }) {
 
-      const res = await fetch(`https://udemy-api-9ae17-default-rtdb.firebaseio.com/tareas.json`);
-      const dataDB = await res.json();
+      try {
 
-      const arrTareas = [];
+        const res = await fetch(`https://udemy-api-9ae17-default-rtdb.firebaseio.com/tareas.json`);
+        const dataDB = await res.json();
 
-      for (let id in dataDB) {
-        arrTareas.push(dataDB[id]);
+        const arrTareas = [];
+
+        for (let id in dataDB) {
+          arrTareas.push(dataDB[id]);
+        }
+
+        commit('cargar', arrTareas);
+
+      } catch (error) {
+        console.log(error);
       }
-
-      commit('cargar', arrTareas);
 
     },
 
     async guardarTarea({ commit }, tarea) {
       try {
-        const res = await fetch(`https://udemy-api-9ae17-default-rtdb.firebaseio.com/tareas/${tarea.id}.json`, {
+        const respuesta = await fetch(`https://udemy-api-9ae17-default-rtdb.firebaseio.com/tareas/${tarea.id}.json`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json'
@@ -65,12 +71,12 @@ export default createStore({
           body: JSON.stringify(tarea)
         })
 
-        const dataDB = await res.json()
+        const dataDB = await respuesta.json()
+        commit('guardar', tarea)
 
       } catch (error) {
         console.log(error);
       }
-      commit('guardar', tarea)
     },
 
     async updateTarea({ commit }, tarea) {
@@ -86,7 +92,7 @@ export default createStore({
         })
         const dataDB = await res.json();
         commit('update', tarea)
-        
+
       } catch (error) {
         console.log(error);
       }
@@ -100,12 +106,12 @@ export default createStore({
           headers: {
             'Content-Type': 'application/json'
           },
-          
+
         })
-        commit('delete', id)  
+        commit('delete', id)
       } catch (error) {
         console.log(error);
-      }      
+      }
     },
 
     buscarTarea({ commit }, id) {
