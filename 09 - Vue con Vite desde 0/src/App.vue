@@ -1,47 +1,35 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+const name = 'Vue dinamico'
+const styleBlue = "color:blue"
+const arrColores=["blue", "red", "green"]
+const activo = false
+const objetoFruta = {
+  id:1,
+  name: "Manzana",
+  price: "1.00",
+  description: "Una manzana",
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  
+  <h2>Hola {{ name }}</h2>
+  
+  <br/>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+  <p>Objeto fruta :: {{ objetoFruta }}</p>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <br/>
+
+  <p>Este bucle FOR sólo se da cuando que quiere </p>
+  <ul>
+    <li v-for="(value, propiedad, index) in objetoFruta" :key="index" >
+      {{ index++ }} - {{ propiedad }} : {{ value }}      
+    </li>
+  </ul>
+
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<style>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>

@@ -1,8 +1,1 @@
-/01 - inicio vue3 - cdn/node_modules/*
-/02 - vue-router/node_modules/*
-/03 - banco digital dinamico/node_modules/*
-/04 - vuex-1/node_modules/*
-/05 - formulario-basico/node_modules/*
-/06 - formulario-crud/node_modules/*
-/07 - api firebase/node_modules/*
-/08 - apiAuthFireBase/node_modules/*
+*/node_modules/*
