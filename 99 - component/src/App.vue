@@ -1,33 +1,77 @@
 
 <script setup>
-  import ButtonCounter from "./components/ButtonCounter.vue";
-  import BlogPost from "./components/BlogPost.vue";
-  import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
+import ButtonCounter from "./components/ButtonCounter.vue";
+import BlogPost from "./components/BlogPost.vue";
+import PaginatePost from "./components/PaginatePost.vue";
+import LoadingSpinner from "./components/LoadingSpinner.vue";
 
-  const posts = ref([
-    {id: 1, title: 'Post 1', body: 'Este es el 1'},
-    {id: 2, title: 'Post 2', body: 'Este es el 2'},
-    {id: 3, title: 'Post 3'},
-  ])
+const posts = ref([]);
+const favorito = ref("");
+const isLoading = ref(true);
+
+const cambiarFavorito = (title) => {
+  favorito.value = title;
+};
+
+const registrosXpagina = 5;
+const inicio = ref(0);
+const fin = ref(registrosXpagina);
+
+const prev = () => {
+  inicio.value = inicio.value - registrosXpagina;
+  fin.value = fin.value - registrosXpagina;
+};
+
+const next = () => {
+  inicio.value = inicio.value + registrosXpagina;
+  fin.value = fin.value + registrosXpagina;
+};
+
+onMounted(async () => {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    posts.value = await res.json();
+  } catch (error) {
+    console.log(error);
+  } finally {
+
+    setTimeout(()=>{
+      isLoading.value = false;
+    }, 500)
+
+  }
+});
 
 </script>
 
 
 <template>
-  <div class="container">
+  <LoadingSpinner v-if="isLoading"></LoadingSpinner>
+  <div class="container" v-else>
     <h3>App Contador</h3>
 
-    <h4></h4>
+    <h4>Mi post favorito: {{ favorito }}</h4>
 
-    <ButtonCounter />
-    <button-counter></button-counter>
+    <PaginatePost
+      :inicio="inicio"
+      :fin="fin"
+      :maxRegistros="posts.length"
+      @prev="prev"
+      @next="next"
+    ></PaginatePost>
 
-    
-    <BlogPost v-for="post in posts" :id="post.id" :title="post.title" :body="post.body" :key="post.id">
+    <BlogPost
+      v-for="post in posts.slice(inicio, fin)"
+      :id="post.id"
+      :title="post.title"
+      :body="post.body"
+      :key="post.id"
+      @cambiarNombreFavorito="cambiarFavorito"
+      class="mb-2"
+    >
     </BlogPost>
-    
-
   </div>
 </template>
 
