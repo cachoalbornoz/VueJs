@@ -6,7 +6,9 @@
 
 
   const posts = ref([
-    {title: 'Post 1'}
+    {id: 1, title: 'Post 1', body: 'Este es el 1'},
+    {id: 2, title: 'Post 2', body: 'Este es el 2'},
+    {id: 3, title: 'Post 3'},
   ])
 
 </script>
@@ -16,12 +18,15 @@
   <div class="container">
     <h3>App Contador</h3>
 
+    <h4></h4>
+
     <ButtonCounter />
     <button-counter></button-counter>
 
-    <BlogPost title="Post 1" :id ="1" body = "Descripcion 1"/>
-    <BlogPost title="Post 2" :id ="2" body = "Descripcion 2"/>
-    <BlogPost title="Post 3" :id ="3" />  
+    
+    <BlogPost v-for="post in posts" :id="post.id" :title="post.title" :body="post.body" :key="post.id">
+    </BlogPost>
+    
 
   </div>
 </template>
