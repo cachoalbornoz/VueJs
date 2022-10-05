@@ -1,51 +1,33 @@
 <script setup>
 
-import { ref } from "vue";
-import axios from "axios";
 import { useRoute, useRouter } from "vue-router"
+import { useGetData} from "@/composables/getData"
+import LoadingSpinner from "../components/LoadingSpinner.vue";
+
+const {data, getData, errores} = useGetData()
 
 const route = useRoute()
 const router = useRouter()
-
-const poke = ref({})
-
 
 const back = () => {
     router.push("/pokemons")
 }
 
+getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`)
 
-const getData = async () => {
-
-    try {
-        const { data } = await axios.get(
-            `https://pokeapi.co/api/v2/pokemon/${route.params.name}`
-        )
-        poke.value = data
-    } catch (error) {
-        console.log(error);
-        poke.value = null;
-    }
-}
-
-
-getData()
 </script>
 
 <template>
 
-    <div v-if="poke" class="row">
+    <div class=" alert alert-danger mt-2" v-if="errores">{{ errores }}</div>
+
+    <div v-if="data" class="row">
         <div class="col-12">
-            <img :src="poke.sprites?.front_default" alt="" />
+            <img :src="data.sprites?.front_default" alt="" />
             <h2>Poke name : {{ $route.params.name }}</h2>
+            <button @click="back" class="btn btn-outline-primary"> Volver </button>
         </div>
     </div>
 
-    <div v-else class="row">        
-        <div class="col-12">
-            <h2> No existe el pokemon </h2>
-        </div>
-    </div>
-    <button @click="back" class="btn btn-outline-primary"> Volver </button>
 
 </template>

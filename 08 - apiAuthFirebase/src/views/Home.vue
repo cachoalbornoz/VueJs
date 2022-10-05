@@ -22,7 +22,7 @@ export default {
   components: {
     Input,
     ListaTareas,
-},
+  },
   data() {
     return {
       tarea: {
