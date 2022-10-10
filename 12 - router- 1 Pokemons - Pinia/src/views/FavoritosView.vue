@@ -26,7 +26,10 @@ const { favoritos } = storeToRefs(useFavoritos)
                     <img :src="favorito.sprites?.front_default" alt="" />
                 </div>
                 <div class="col-2">
-                    <button @click="remove(favorito.id)" class="btn btn-outline-danger btn-xs mt-2" > 
+                    <router-link :to="`/pokemons/${favorito.name}`" class="btn btn-primary me-2">
+                        Mas info
+                    </router-link>
+                    <button @click="remove(favorito.id)" class="btn btn-outline-danger btn-xs" > 
                         Quitar
                     </button>
                 </div>

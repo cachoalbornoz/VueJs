@@ -1,5 +1,5 @@
 <script setup>
-
+import { RouterLink } from "vue-router"
 import { useRoute, useRouter } from "vue-router"
 import { useGetData} from "@/composables/getData"
 import { storeToRefs} from "pinia"
@@ -10,8 +10,8 @@ import LoadingSpinner from "../components/LoadingSpinner.vue";
 import { useFavoritosStore } from '@/store/favoritos'
 const useFavoritos = useFavoritosStore()
 
-const {add} = useFavoritos
-const {disabled} = storeToRefs(useFavoritos)
+const {add, findPokemon} = useFavoritos
+const {} = storeToRefs(useFavoritos)
 
 const {data, getData, errores} = useGetData()
 
@@ -34,7 +34,8 @@ getData(`https://pokeapi.co/api/v2/pokemon/${route.params.name}`)
         <div>
             <img :src="data.sprites?.front_default" alt="" />
             <h2>Poke name : {{ $route.params.name }}</h2>
-            <button :disabled="disabled" @click="add(data)" class="btn btn-outline-primary mt-2" > 
+            <hr/>
+            <button :disabled="findPokemon(data.name)" @click="add(data)" class="btn btn-primary me-2" > 
                 Agregar favorito 
             </button>
         </div>

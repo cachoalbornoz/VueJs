@@ -1,43 +1,35 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
-
-
 // Devuelvo una FUNCION DE FLECHA
-
 export const useFavoritosStore = defineStore('favoritos', () => {
 
     const favoritos = ref([])
-    const disabled = ref(false)
 
+    if(localStorage.getItem('pokemons')){
+        favoritos.value = JSON.parse(localStorage.getItem('pokemons'))
+    }
+
+    // Agregarlo
     const add = (pokemon) => {
-
-        // Controlar que no este en la lista
-        if (!favoritos.value.find(item => item.id === pokemon.id)) {
-
-            // Agregarlo
-            favoritos.value.push(pokemon)
-
-            // Bloqueo el proximo ingreso
-            disabled.value = true
-        }
+        favoritos.value.push(pokemon)        
+        localStorage.setItem('pokemons', JSON.stringify(favoritos.value))
     }
+    
+    // Buscarlo
+    const findPokemon = (name) => favoritos.value.find(item => item.name === name)
 
-    const pokemonFind = (id) => {
-        favoritos.value.find(item => item.id === id)
-    }
-
+    // Borrarlo
     const remove = (id) => {
         favoritos.value = favoritos.value.filter(item => item.id !== id)
-        disabled.value = false
+        localStorage.setItem('pokemons', JSON.stringify(favoritos.value))
     }
 
 
     return {
-        disabled,
         favoritos,
         add,
+        findPokemon,
         remove,
-        pokemonFind
     }
 })
