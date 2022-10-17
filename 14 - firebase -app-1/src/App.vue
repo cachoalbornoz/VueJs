@@ -15,7 +15,6 @@ import { RouterLink, RouterView } from 'vue-router'
         <router-link to="/" class=" btn btn-outline-primary me-1">Home</router-link>
         <router-link to="/login" class=" btn btn-outline-primary me-1">Login</router-link>
         <router-link to="/register" class=" btn btn-outline-primary me-1">Registro</router-link>
-        <router-link to="/logout" class=" btn btn-outline-primary me-1">Logout</router-link>
       </div>
 
     </div>

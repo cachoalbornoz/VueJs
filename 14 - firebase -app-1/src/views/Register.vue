@@ -1,41 +1,45 @@
 <template>
     <div>
         <h1>Register</h1>
+
         <hr/>
 
-
         <form @submit.prevent="handleSubmit">
-            <label>Email
-                <input type="email" v-model.trim="email" >
-            </label>
-            <label>Password
-                <input type="password" v-model.trim="password" >
-            </label>
 
-            <button type="submit">Crear usuario </button>
+            <input type="email" placeholder="Ingrese email" v-model.trim="email" >
 
+            <input type="password" placeholder="Ingrese contraseña" v-model.trim="password" />
+
+            <button type="submit"> Crear usuario </button>
         </form>
 
     </div>
 </template>
 
 <script setup>
-
-import { ref } from "vue";
+import { ref } from 'vue';
 import { useUserStore } from '../store/user'
 
-const useUsers = useUserStore()
-const { registerUser } = useUsers;
+import { useRouter} from 'vue-router'
 
-const email = ref('cachoalbornoz@gmail.com')
-const password = ref('cervantes')
+const useStore = useUserStore()
 
-const handleSubmit = async () => {
+const router = useRouter()
 
-    if(!email.value || password.value.length < 6){
-        return alert('Complete los datos')
+const email = ref('cachoalbornoz@test.com')
+const password = ref(123456)
+
+const handleSubmit = async () => {   
+
+    if(!email.value || password.value.length < 6) {
+        alert('Complete los campos')
+        return
     }
-    await registerUser(email.value, password.value)
+
+    await useStore.registerUser(email.value, password.value)
+
+    router.push('/')
+
 }
 
 
