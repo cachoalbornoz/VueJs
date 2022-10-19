@@ -10,7 +10,7 @@
 
             <input type="password" placeholder="Ingrese contraseña" v-model.trim="password" />
 
-            <button type="submit"> Crear usuario </button>
+            <button type="submit" :disabled="useStore.loadingUser"> Crear usuario </button>
         </form>
 
     </div>
@@ -20,11 +20,7 @@
 import { ref } from 'vue';
 import { useUserStore } from '../store/user'
 
-import { useRouter} from 'vue-router'
-
 const useStore = useUserStore()
-
-const router = useRouter()
 
 const email = ref('cachoalbornoz@test.com')
 const password = ref(123456)
@@ -37,9 +33,6 @@ const handleSubmit = async () => {
     }
 
     await useStore.registerUser(email.value, password.value)
-
-    router.push('/')
-
 }
 
 

@@ -1,13 +1,34 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+
+import Home from '../views/Home.vue'
+
+import { useUserStore } from '../store/user'
+
+const requireAuth = async(to, from, next) => {
+
+  const userStore = useUserStore()
+
+  userStore.loadingSession = true
+
+  const user = await userStore.currentUser()
+
+  if(user){
+    next()
+  }else{
+    next('/login')
+  }
+
+  userStore.loadingSession = false
+
+}
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   linkActiveClass: "active",
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('../views/Home.vue')
+      path: '/', name: 'home', component: Home, beforeEnter: requireAuth
     },
     {
       path: '/login',

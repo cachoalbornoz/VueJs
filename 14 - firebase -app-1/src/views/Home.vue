@@ -2,18 +2,17 @@
     <div>
         <h1>Home</h1>
         <hr />
-        <p>Usuario : </p>
+        <p>Usuario : {{ email }} </p>
     </div>
 </template>
 
 <script setup>
 
-import { storeToRefs } from "pinia"
 import { useUserStore } from '../store/user'
 
-const useUsers = useUserStore()
-const { user } = storeToRefs(useUsers)
+const useStore = useUserStore()
 
+const { email, uid } = useStore.userData
 
 </script>
 
