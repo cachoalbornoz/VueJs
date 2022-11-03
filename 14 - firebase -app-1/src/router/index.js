@@ -1,11 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-
-import Home from '../views/Home.vue'
-
 import { useUserStore } from '../store/user'
 
-const requireAuth = async(to, from, next) => {
+const requireAuth = async (to, from, next) => {
 
   const userStore = useUserStore()
 
@@ -13,9 +10,9 @@ const requireAuth = async(to, from, next) => {
 
   const user = await userStore.currentUser()
 
-  if(user){
+  if (user) {
     next()
-  }else{
+  } else {
     next('/login')
   }
 
@@ -28,7 +25,10 @@ const router = createRouter({
   linkActiveClass: "active",
   routes: [
     {
-      path: '/', name: 'home', component: Home, beforeEnter: requireAuth
+      path: '/', name: 'home', component: () => import('../views/Home.vue'), beforeEnter: requireAuth
+    },
+    {
+      path: '/editar/:id', name: 'editar', component: () => import('../views/Editar.vue'), beforeEnter: requireAuth
     },
     {
       path: '/login',
@@ -40,7 +40,7 @@ const router = createRouter({
       name: 'register',
       component: () => import('../views/Register.vue')
     },
-    
+
     {
       path: "/:pathMatch(.*)*",
       name: "NotFound",

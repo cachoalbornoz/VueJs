@@ -9,6 +9,10 @@
             {{ item.short }}
             <br>
             <button @click="databaseStore.eliminar(item.id)">Eliminar</button>
+            <br>
+            <router-link :to="`/editar/${item.id}`">
+                Editar
+            </router-link>
         </li>
     </ul>
     
