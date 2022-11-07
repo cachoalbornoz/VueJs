@@ -1,39 +1,62 @@
 <template>
-    <div>
-        <h1>Login </h1>
 
-        <hr/>
 
-        <form @submit.prevent="handleSubmit">
 
-            <input type="email" placeholder="Ingrese email" v-model.trim="email" >
+    <a-row>
+        <a-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }">
 
-            <input type="password" placeholder="Ingrese contraseña" v-model.trim="password" />
 
-            <button type="submit" :disabled="useStore.loadingUser"> Acceder </button>
-        </form>
+            <a-form :model="formState" name="basic" :label-col="{ span: 8 }" :wrapper-col="{ span: 16 }" autocomplete="off" @finish="onFinish" @finishFailed="onFinishFailed">
 
-    </div>
+                <a-form-item label="Ingrese email" name="email" :rules="[{
+                    required: true,
+                    whitespace: true,
+                    type: 'email',
+                    message: 'Por favor, ingrese el email'
+                }]">
+                    <a-input v-model:value="formState.email" />
+                </a-form-item>
+
+
+                <a-form-item label="Ingrese su password" name="password" :rules="[{
+                    required: true,
+                    min: 6,
+                    whitespace: true,
+                    message: 'Por favor, ingrese su password de al menos 8 caracteres!'
+                }]">
+                    <a-input-password v-model:value="formState.password" />
+                </a-form-item>
+
+
+                <a-form-item :wrapper-col="{ offset: 8, span: 16 }" :disabled="useStore.loadingUser">
+                    <a-button type="primary" html-type="submit">Acceder</a-button>
+                </a-form-item>
+
+            </a-form>
+
+
+        </a-col>
+
+    </a-row>
+
+
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import { useUserStore } from '../store/user'
 
 const useStore = useUserStore()
 
-const email = ref('cachoalbornoz@test.com')
-const password = ref(123456)
+const formState = reactive({
+    email: 'cachoalbornoz@test.com',
+    password: '123456',
+});
 
-const handleSubmit = async () => {   
-
-    if(!email.value || password.value.length < 6) {
-        alert('Complete los campos')
-        return
-    }
-
-    await useStore.loginUser(email.value, password.value)
+const onFinish = async () => {
+    await useStore.loginUser(formState.email, formState.password)
 }
 
+const onFinishFailed = () => { }
 
 </script>
