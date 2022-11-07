@@ -33,15 +33,7 @@
 
       </div>
 
-
-
     </a-layout-content>
-
-
-
-
-
-
 
   </a-layout>
 
@@ -49,8 +41,10 @@
 
 
 <script setup>
+
 import { ref, watch } from 'vue';
 import { useRoute, RouterLink, RouterView } from 'vue-router'
+import 'ant-design-vue/dist/antd.css';
 
 import { useUserStore } from './store/user'
 
