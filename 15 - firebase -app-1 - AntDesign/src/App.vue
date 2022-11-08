@@ -14,6 +14,9 @@
         <a-menu-item key="register" v-if="!useStore.userData">
           <router-link to="/register" class=" btn btn-outline-primary me-1">Registro</router-link>
         </a-menu-item>
+        <a-menu-item key="perfil" v-if="useStore.userData">
+          <router-link to="/perfil" class=" btn btn-outline-primary me-1">Perfil</router-link>
+        </a-menu-item>
         <a-menu-item key="logout" @click="useStore.logoutUser" v-if="useStore.userData">
           Logout
         </a-menu-item>

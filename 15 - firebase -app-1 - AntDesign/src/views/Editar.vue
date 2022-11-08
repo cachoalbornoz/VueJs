@@ -1,6 +1,6 @@
 <script setup>
 
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive } from "vue";
 import { useRoute, useRouter } from "vue-router"
 import { useDatabaseStore } from '../store/database';
 import { regExpUrl } from '../utils/regExpUrl'
