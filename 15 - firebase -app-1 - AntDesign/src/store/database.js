@@ -11,20 +11,17 @@ import router from "../router";
 export const useDatabaseStore = defineStore('database', {
 
     state: () => ({
-
         documents: [],
         loading: false,
-        loadingDoc: false,
     }),
 
     actions: {
 
         async getUrls() {
 
-
             if (this.documents.length !== 0) return
 
-            this.loadingDoc = true;
+            this.loading = true;
             try {
                 const q = query(collection(db, 'urls'), where("user", '==', auth.currentUser.uid))
                 const querySnapshot = await getDocs(q)
@@ -41,7 +38,7 @@ export const useDatabaseStore = defineStore('database', {
                 console.log(error);
 
             } finally {
-                this.loadingDoc = false;
+                this.loading = false;
             }
         },
 
@@ -117,7 +114,7 @@ export const useDatabaseStore = defineStore('database', {
 
         async eliminar(id) {
 
-            this.loadingDoc = true
+            this.loading = true
             try {
 
                 const docRef = doc(db, 'urls', id)
@@ -140,7 +137,7 @@ export const useDatabaseStore = defineStore('database', {
             } catch (error) {
                 console.log(error.message);
             } finally {
-                this.loadingDoc = false
+                this.loading = false
             }
 
         },

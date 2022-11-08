@@ -41,14 +41,12 @@ onMounted(async () => {
 
 // Cuando se presiona Editar
 const handleSubmit = async () => {
-
     await useDataBase.update(id, url.value)
-
 }
 
 
 const back = () => {
-    router.push("/")
+    router.push("/home")
 }
 
 </script>
