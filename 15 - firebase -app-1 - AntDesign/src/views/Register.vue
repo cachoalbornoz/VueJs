@@ -1,4 +1,7 @@
 <template>
+
+    <h1 class="text-center">Registro </h1>
+
     <a-row>
         <a-col :xs="{ span: 24 }" :sm="{ span: 12, offset: 6 }">
 

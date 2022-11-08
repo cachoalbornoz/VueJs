@@ -25,7 +25,7 @@ const router = createRouter({
   linkActiveClass: "active",
   routes: [
     {
-      path: '/home', name: 'home', component: () => import('../views/Home.vue'), beforeEnter: requireAuth
+      path: '/', name: 'home', component: () => import('../views/Home.vue'), beforeEnter: requireAuth
     },
     {
       path: '/editar/:id', name: 'editar', component: () => import('../views/Editar.vue'), beforeEnter: requireAuth

@@ -23,7 +23,7 @@
 
     <a-layout-content style="padding: 0 50px">
 
-      <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+      <div class="container">
 
         <div v-if="useStore.loadingSession">
           loading ...
@@ -61,3 +61,17 @@ watch(
 )
 
 </script>
+
+<style>
+
+.container{
+  background: #fff;
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+}
+
+.text-center{
+  text-align: center;
+}
+
+</style>

@@ -68,6 +68,7 @@ export const useDatabaseStore = defineStore('database', {
 
         async editar(id) {
 
+            this.loading = true
             try {
                 const docRef = doc(db, 'urls', id)
                 const docUrl = await getDoc(docRef)
@@ -75,6 +76,8 @@ export const useDatabaseStore = defineStore('database', {
 
             } catch (error) {
                 console.log(error);
+            }finally{
+                this.loading = false
             }
         },
 
@@ -110,7 +113,6 @@ export const useDatabaseStore = defineStore('database', {
                 this.loading = false
             }
         },
-
 
         async eliminar(id) {
 
