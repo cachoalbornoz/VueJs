@@ -1,3 +1,26 @@
+
+<script setup>
+
+import { ref, watch } from 'vue';
+import { useRoute, RouterLink, RouterView } from 'vue-router'
+import 'ant-design-vue/dist/antd.css';
+
+import { useUserStore } from './store/user'
+
+const useStore = useUserStore()
+
+const route = useRoute();
+const selectedKeys = ref([''])
+
+watch(
+  () => route.name,
+  () => {
+    selectedKeys.value = [route.name];
+  }
+)
+
+</script>
+
 <template>
 
   <a-layout>
@@ -6,7 +29,7 @@
 
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="horizontal" :style="{ lineHeight: '64px' }">
         <a-menu-item key="home" v-if="useStore.userData">
-          <router-link to="/home" class=" btn btn-outline-primary me-1">Home</router-link>
+          <router-link to="/" class=" btn btn-outline-primary me-1">Home</router-link>
         </a-menu-item>
         <a-menu-item key="login" v-if="!useStore.userData">
           <router-link to="/login" class=" btn btn-outline-primary me-1">Login</router-link>
@@ -24,57 +47,29 @@
 
     </a-layout-header>
 
+    
     <a-layout-content style="padding: 0 50px">
-
-      <div class="container">
-
-        <div v-if="useStore.loadingSession">
-          loading ...
+        <div class="container">
+            <div v-if="useStore.loadingSession">loading user...</div>
+            <router-view v-else></router-view>
         </div>
-
-        <RouterView />
-
-      </div>
-
     </a-layout-content>
+
+      
 
   </a-layout>
 
 </template>
 
 
-<script setup>
-
-import { ref, watch } from 'vue';
-import { useRoute, RouterLink, RouterView } from 'vue-router'
-import 'ant-design-vue/dist/antd.css';
-
-import { useUserStore } from './store/user'
-
-const useStore = useUserStore()
-
-const route = useRoute();
-const selectedKeys = ref([''])
-
-watch(
-  ()=> route.name, 
-  ()=>{
-    selectedKeys.value = [route.name];
-  }
-)
-
-</script>
-
 <style>
-
-.container{
+.container {
   background: #fff;
   padding: 24px;
   min-height: calc(100vh - 64px);
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
-
 </style>
