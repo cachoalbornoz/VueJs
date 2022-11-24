@@ -59,7 +59,7 @@ const formState = reactive({
     repassword: ''
 });
 
-let validatePass = async (_rule, value) => {
+const validatePass = async (_rule, value) => {
     if (value === '') {
         return Promise.reject('Repita contraseña');
     }
