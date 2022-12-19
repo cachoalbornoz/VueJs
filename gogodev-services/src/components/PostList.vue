@@ -1,11 +1,16 @@
 <template>
-    <h1>Post List</h1>
-    
-    <ul class="post-list">
-        <li v-for="post in posts" :key="post.id">
-            {{ post.title}}
-        </li>
-    </ul>
+
+    <div class="container">
+
+        <h1>Post List</h1>
+
+        <ul class="list-group">
+            <li class="list-group-item" v-for="post in posts" :key="post.id">
+                {{ post.title }}
+            </li>
+        </ul>
+        
+    </div>
 
 </template>
 
@@ -23,17 +28,6 @@ onMounted(async () => {
 
 </script>
 
-<style scoped>
-.post-list {
-    width: 95vw;
-    height: 75px;
-    padding: 20px;
-    list-style-type: none;
-}
+<style>
 
-.post-list li {
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-}
 </style>
