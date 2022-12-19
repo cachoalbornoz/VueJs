@@ -1,10 +1,9 @@
 <template>
     <h1>Post List</h1>
-    <hr />
-
+    
     <ul class="post-list">
         <li v-for="post in posts" :key="post.id">
-            {{ post.body }}
+            {{ post.title}}
         </li>
     </ul>
 
@@ -15,18 +14,16 @@ import { ref, onMounted } from 'vue';
 
 import PostService from '@/services/PostService';
 
-let posts = ref([])
+const service = new PostService()
+const posts = service.getPosts()
 
 onMounted(async () => {
-    const service = new PostService()
     await service.fetchAll()
-    posts = service.getPosts()
 })
-
 
 </script>
 
-<style>
+<style scoped>
 .post-list {
     width: 95vw;
     height: 75px;
@@ -38,6 +35,5 @@ onMounted(async () => {
     padding: 10px;
     width: 100%;
     border: 1px solid #ccc;
-
 }
 </style>
