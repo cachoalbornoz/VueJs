@@ -6,7 +6,9 @@
 
         <ul class="list-group">
             <li class="list-group-item" v-for="post in posts" :key="post.id">
-                {{ post.title }}
+                <router-link :to="{ name: 'detail', params: { id: post.id } }">
+                    {{ post.title }}
+                </router-link>
             </li>
         </ul>
         
@@ -15,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 import PostService from '@/services/PostService';
 
