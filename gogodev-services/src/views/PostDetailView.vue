@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 import PostService from '@/services/PostService';
@@ -27,5 +27,6 @@ const post = service.getPost()
 onMounted(async () => {
     const route = useRoute()
     await service.fecthPost(route.params.id)
+    console.log(process.env)
 })
 </script>
