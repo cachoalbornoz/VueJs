@@ -7,7 +7,7 @@
         <ul class="list-group">
             <li class="list-group-item" v-for="post in posts" :key="post.id">
                 <router-link :to="{ name: 'detail', params: { id: post.id } }">
-                    {{ post.title }}
+                    {{ post.id }} - {{ post.title }}
                 </router-link>
             </li>
         </ul>
