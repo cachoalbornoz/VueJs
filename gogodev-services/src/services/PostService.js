@@ -27,7 +27,7 @@ class PostService {
         }
     }
 
-    async fecthPost(id) {
+    async fecthById(id) {
         try {
             const url = `https://jsonplaceholder.typicode.com/posts/${id}`;            
             const response = await fetch(url);

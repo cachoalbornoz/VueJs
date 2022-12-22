@@ -1,16 +1,17 @@
 <template>
     <div class="container">
 
-        <h1>Post Detail</h1>
-
-        <h3>{{ post.id }} - {{ post.title }}</h3>
-
-        <ul class="list-group">
+        <ul class="list-group mt-5">
             <li class="list-group-item">
-                {{ post.title }}                
+                <h3>{{ post.id }} - {{ post.title }}</h3>
+                {{ post.title }}
                 <p> {{ post.body }}</p>
             </li>
         </ul>
+
+        <router-link :to="{ name: 'post'}" class=" btn btn-outline-primary">
+            Volver
+        </router-link>
 
     </div>
 
@@ -26,7 +27,7 @@ const post = service.getPost()
 
 onMounted(async () => {
     const route = useRoute()
-    await service.fecthPost(route.params.id)
+    await service.fecthById(route.params.id)
     console.log(process.env)
 })
 </script>

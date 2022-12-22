@@ -11,7 +11,7 @@
                 </router-link>
             </li>
         </ul>
-        
+
     </div>
 
 </template>
@@ -31,5 +31,7 @@ onMounted(async () => {
 </script>
 
 <style>
-
+.list-group-item a{
+     text-decoration: none;
+}
 </style>
