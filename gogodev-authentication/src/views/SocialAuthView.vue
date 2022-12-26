@@ -9,8 +9,8 @@
         </div>
 
         <div class="card p-3 mt-3">
-            <h3>Login with <span class=" text-primary">Github</span></h3>
-            <button class="btn btn-primary mt-4">Submit with Github</button>
+            <h3>Login with <span class=" text-primary">Facebbok</span></h3>
+            <button @click="loginFacebook" class="btn btn-primary mt-4">Submit with Facebbok</button>
         </div>
 
 
@@ -20,15 +20,32 @@
 
 <script setup>
 
-import { GoogleAuthProvider, signInWithPopup, getAuth } from '@firebase/auth';
+import {FacebookAuthProvider, GoogleAuthProvider, signInWithPopup, getAuth } from '@firebase/auth';
+
 const googleProvider = new GoogleAuthProvider()
+const facebookProvider = new FacebookAuthProvider()
+
 const auth = getAuth()
 
 const loginGoogle = () => { 
-
     signInWithPopup(auth, googleProvider)
     .then((result)=>{
+        const credential = GoogleAuthProvider.credentialFromResult(result)
+        const token = credential.accessToken;
         alert('Exito')
+
+    })
+    .catch((error)=>{
+        alert('Login failed :' + error)
+    })
+}
+
+const loginFacebook = ()=>{
+    signInWithPopup(auth, facebookProvider)
+    .then((result)=>{
+        const credential = FacebookAuthProvider.credentialFromResult(result)
+        alert('Exito')
+
     })
     .catch((error)=>{
         alert('Login failed :' + error)
