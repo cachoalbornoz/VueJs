@@ -1,4 +1,4 @@
-# authentication
+# gogodev-global-vuex
 
 ## Project setup
 ```

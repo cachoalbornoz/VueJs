@@ -1,4 +1,6 @@
 import { createApp } from 'vue'
+import VueCookies from 'vue-cookies'
+
 import App from './App.vue'
 import router from './router'
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -22,4 +24,21 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-createApp(App).use(router).mount('#app')
+const app = createApp(App)
+
+app.use(router)
+    .use(VueCookies, {expires: '1d'})
+    .mount('#app')
+
+// $cookies.set('auth', {llave: valor, llave2: valor2}) // Guardar cookie
+// $cookies.get('auth')                                 // Obtener cookie
+// $cookies.remove('auth')                              // Eliminar cookie
+// $cookies.isKey('auth')                               // Comprueba que existe esa cookie
+// $cookies.keys()                                      // Obtengo todas las cookies
+
+// $session.start()
+// $session.set('auth', {llave: valor, llave2: valor2})
+// $session.get('auth)
+// $session.id('auth)
+// $session.renew()
+// $session.destroy()

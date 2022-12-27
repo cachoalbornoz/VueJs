@@ -42,6 +42,7 @@ class AuthService {
 
             // Almaceno el token 
             this.jwt = response.access_token
+            $cookies.set('auth', response.access_token)
             return true
 
         } catch (error) {
