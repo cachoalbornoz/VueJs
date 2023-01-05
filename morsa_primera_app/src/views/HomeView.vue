@@ -5,6 +5,9 @@
   <hr />
 
   <h3>Todo List</h3>
+
+  <p v-if="uncompletedTodos.length === 0">Nada por hacer</p>
+
   <ul id="incomplete-tasks">
     <li v-for="todo in uncompletedTodos" :key="todo.id">
       <input type="checkbox" @click="toggle(todo.id)" />
